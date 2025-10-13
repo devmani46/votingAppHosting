@@ -1,0 +1,155 @@
+<div class="campaign-container">
+  <app-burger-menu></app-burger-menu>
+
+  <div class="create-form">
+    <div class="header">
+      <h2>{{ headerTitle() }}</h2>
+      <img class="admin-photo" src="/assets/admin.png" alt="Admin" />
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="photo-divide">
+        <app-fui-input
+          class="campaign-title"
+          size="large"
+          formControlName="title"
+          placeholder="Campaign Title"
+        ></app-fui-input>
+
+        <div class="two-inputs">
+          <textarea
+            class="description-box"
+            formControlName="description"
+            placeholder="Campaign Description"
+          ></textarea>
+        </div>
+
+        <div class="add-candidates row">
+          <h2>Candidates</h2>
+          <app-button
+            size="large"
+            shape="circular"
+            appearance="primary"
+            (click)="openDialog()"
+            >Add</app-button
+          >
+        </div>
+
+        <div class="candidates-list">
+          @for (c of candidates().controls; track $index) {
+            <app-campaign-card
+              [id]="$index.toString()"
+              [title]="c.value.name"
+              [description]="c.value.bio"
+              [image]="c.value.photo"
+              [deleted]="true"
+              size="small"
+              [showKebabMenu]="true"
+              [showEditOption]="true"
+              [showDeleteOption]="true"
+              (edit)="openDialog($index)"
+              (delete)="onCandidateDelete($index.toString())"
+            ></app-campaign-card>
+          }
+        </div>
+
+        @if (showDialog()) {
+          <div class="dialog-backdrop" (click)="closeDialogOnBackdrop($event)">
+            <div class="dialog-content" (click)="$event.stopPropagation()">
+              <h3>{{ dialogTitle() }}</h3>
+
+              <div class="candidate-form">
+                <div class="candidate-form-divided">
+                  <div class="candidate-photo-upload">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      (change)="onCandidatePhotoSelected($event)"
+                      hidden
+                      #candidateFile
+                    />
+                    <button
+                      type="button"
+                      class="choose-photo-btn"
+                      (click)="candidateFile.click()"
+                    >
+                      @if (candidatePhotoPreview()) {
+                        <img
+                          class="candidate-photo"
+                          [src]="candidatePhotoPreview()"
+                          alt="Candidate Photo"
+                        />
+                      } @else {
+                        <span class="material-symbols-outlined">add_photo_alternate</span>
+                        <h2>Add Photo</h2>
+                      }
+                    </button>
+                  </div>
+
+                  <div class="candidate-details">
+                    <label>Enter your name:</label>
+                    <app-fui-input
+                      [formControl]="nameControl"
+                      placeholder="Name"
+                    ></app-fui-input>
+
+                    <label>Enter your bio:</label>
+                    <textarea
+                      class="bio-box"
+                      [formControl]="bioControl"
+                      placeholder="Bio"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dialog-actions">
+                <app-button appearance="secondary" (click)="closeDialog()"
+                  >Cancel</app-button
+                >
+                <app-button appearance="primary" (click)="saveCandidate()"
+                  >Save</app-button
+                >
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="row dates">
+          <div class="start-date">
+            <label>Start Date:</label>
+            <input type="date" formControlName="startDate" />
+          </div>
+          <div class="end-date">
+            <label>End Date:</label>
+            <input type="date" formControlName="endDate" />
+          </div>
+        </div>
+
+        <app-button size="large" type="submit" appearance="primary">
+          {{ submitButtonLabel() }}
+        </app-button>
+      </div>
+
+      <div class="row add-banner">
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onLogoSelected($event)"
+          hidden
+          #logoInput
+        />
+        <button class="image-upload" type="button" (click)="logoInput.click()">
+          @if (logoPreview()) {
+            <div class="logo-preview">
+              <img [src]="logoPreview()" alt="Campaign Logo" />
+            </div>
+          } @else {
+            <span class="material-symbols-outlined">add_photo_alternate</span>
+            <p>Add banner photo</p>
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

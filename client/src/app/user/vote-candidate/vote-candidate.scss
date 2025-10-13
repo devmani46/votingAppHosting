@@ -1,0 +1,389 @@
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+  25% {
+    background-position: 30% 70%, 80% 20%, 10% 40%, 90% 50%, 20% 90%, 70% 10%,
+      60% 30%;
+  }
+  50% {
+    background-position: 70% 30%, 40% 80%, 50% 10%, 10% 50%, 90% 20%, 30% 70%,
+      20% 60%;
+  }
+  75% {
+    background-position: 50% 90%, 60% 40%, 80% 20%, 30% 70%, 10% 50%, 50% 20%,
+      80% 10%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+}
+
+.vote-candidate-page {
+  background-color: var(--bg-200);
+  color: var(--text-100);
+  font-family: Manrope;
+  --card-size: 20rem;
+  --min-image-height: 16rem;
+  --max-image-height: 16rem;
+  --max-image-height-hover: 12rem;
+  --colorNeutralBackground1: var(--bg-300);
+  --colorNeutralForeground1: var(--text-100);
+
+  .back-button-container {
+    padding: 1rem 80rem 1rem 3rem;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem;
+    font-size: 1.1rem;
+    color: var(--text-200);
+  }
+
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+    gap: 2rem;
+
+    .not-found {
+      font-size: 1.5rem;
+      color: #a00;
+      margin: 0;
+    }
+
+    app-button {
+      min-width: 200px;
+    }
+  }
+
+  .banner-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    background-color: #ffbe99;
+    background-image: radial-gradient(
+        at 62% 72%,
+        hsla(255, 86%, 69%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 66% 19%, hsla(20, 78%, 65%, 1) 0px, transparent 50%),
+      radial-gradient(at 88% 33%, hsla(20, 78%, 65%, 1) 0px, transparent 50%),
+      radial-gradient(at 96% 8%, hsla(331, 73%, 62%, 1) 0px, transparent 50%),
+      radial-gradient(at 71% 22%, hsla(342, 95%, 70%, 1) 0px, transparent 50%),
+      radial-gradient(at 86% 96%, hsla(346, 63%, 73%, 1) 0px, transparent 50%),
+      radial-gradient(at 51% 0%, hsla(250, 90%, 68%, 1) 0px, transparent 50%);
+    background-size: 200% 200%;
+    min-height: 20rem;
+    animation: gradientMove 4s linear infinite;
+
+    img {
+      min-width: 50%;
+      max-width: 60%;
+      border: solid 2px var(--bg-100);
+      border-radius: 1rem;
+    }
+  }
+
+  .about-campaign {
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .campaign-title {
+      line-height: 3rem;
+    }
+
+    .campaign-dates {
+      display: flex;
+      gap: 1rem;
+
+      span {
+        background-color: var(--text);
+        padding: 5px 10px;
+        color: var(--bg-100);
+        border-radius: 5px;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 0.25rem;
+  }
+
+  .description {
+    margin: 0 0 1rem 0;
+    opacity: 0.85;
+  }
+
+  .candidate-list {
+    padding-left: 5rem;
+    padding-bottom: 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+
+    .candidate-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+      cursor: pointer;
+
+      app-campaign-card {
+        width: 100%;
+      }
+
+      app-button {
+        align-self: center;
+        min-width: 160px;
+
+        &:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+      }
+
+      &:focus {
+        outline: 2px solid #2563eb;
+        border-radius: 8px;
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+
+        &:focus {
+          outline: none;
+        }
+
+        app-campaign-card {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .not-found {
+    margin-top: 1rem;
+    color: #a00;
+  }
+}
+
+.popup-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 80;
+
+  .popup {
+    background: #fff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    width: min(92vw, 360px);
+    text-align: center;
+
+    p {
+      margin: 0 0 0.75rem 0;
+      line-height: 1.35;
+    }
+  }
+}
+
+.detail-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.detail-popup {
+  color: var(--text-100);
+  background: var(--bg-200);
+  border-radius: 14px;
+  max-width: 800px;
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.detail-top {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+
+  .photo-wrap {
+    width: 16rem;
+    height: 24rem;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .detail-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-height: 100%;
+
+    .candidate-name {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .candidate-bio {
+      margin: 0;
+      color: #444;
+      line-height: 1.45;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .votes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 70px;
+
+        .votes-count {
+          font-weight: 700;
+          font-size: 1.25rem;
+        }
+
+        .votes-label {
+          font-size: 0.8rem;
+          color: #666;
+        }
+      }
+
+      .vote-bar {
+        flex: 1;
+        height: 10px;
+        background: #e5e7eb;
+        border-radius: 999px;
+        overflow: hidden;
+
+        .vote-fill {
+          height: 100%;
+          width: 0%;
+          background: linear-gradient(90deg, #2563eb, #06b6d4);
+          transition: width 0.3s ease;
+        }
+      }
+    }
+
+    .popup-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .big-vote-btn {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        font-size: 2rem;
+        font-weight: 800;
+        background-color: var(--accent);
+        color: var(--bg-100);
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.properties-section {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+
+  h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .props-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .prop-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 999px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+  }
+
+  .no-props {
+    color: #777;
+    font-size: 0.9rem;
+  }
+}
+
+.keyboard-hint {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+@media (max-width: 640px) {
+  .detail-top {
+    flex-direction: column;
+    align-items: center;
+
+    .detail-meta {
+      align-items: center;
+      text-align: center;
+    }
+  }
+}

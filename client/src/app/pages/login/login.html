@@ -1,0 +1,69 @@
+<div class="login-page">
+  <div class="auth-container">
+    <form [formGroup]="form()" (ngSubmit)="onSubmit()">
+      <h2>Sign in</h2>
+
+      <app-fui-field label="Email" [errorMessage]="emailError()">
+        <app-fui-input
+          size="large"
+          placeholder="Enter your email"
+          formControlName="email"
+          [required]="true"
+        ></app-fui-input>
+      </app-fui-field>
+
+      <app-fui-field label="Password" [errorMessage]="passwordError()">
+        <app-fui-input
+          size="large"
+          placeholder="Enter password"
+          type="password"
+          [required]="true"
+          formControlName="password"
+          [allowGenerate]="false"
+          [allowStrength]="false"
+        ></app-fui-input>
+      </app-fui-field>
+
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" formControlName="rememberMe" />
+        <label for="rememberMe">Remember Me</label>
+      </div>
+
+      <p class="auth-link">
+        Forget Password? <a routerLink="/forgetPassword">Reset here</a>
+      </p>
+
+      <app-button
+        shape="circular"
+        appearance="primary"
+        size="large"
+        type="submit"
+      >
+        Login
+      </app-button>
+    </form>
+
+    <p class="auth-link" style="text-align: center">
+      Don’t have an account? <a routerLink="/register">Sign up</a>
+    </p>
+  </div>
+
+  <div class="aesthetic-container">
+    <div class="aesthetic">
+      <div class="welcome">
+        <h2 class="welcome-title">Welcome Back</h2>
+        <p class="welcome-text">
+          Sign in to your account to continue your voting journey
+        </p>
+      </div>
+      <div class="statistics">
+        <span class="material-symbols-outlined">bar_chart</span>
+        <app-gsap-counter-component
+          [target]="totalCampaigns"
+          [duration]="3"
+        ></app-gsap-counter-component>
+        Campaigns created
+      </div>
+    </div>
+  </div>
+</div>

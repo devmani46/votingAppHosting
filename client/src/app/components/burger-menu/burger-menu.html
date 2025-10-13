@@ -1,0 +1,56 @@
+@if (!isOpen) {
+<div class="burger-icon" (click)="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+} @if (isOpen) {
+<div class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <button class="close-btn" (click)="closeMenu()">&#10005;</button>
+    <div class="masked-svg"></div>
+  </div>
+
+  <nav>
+    <ul>
+      <li routerLink="/menu" routerLinkActive="active">
+        <span class="material-symbols-outlined">team_dashboard</span>
+        Dashboard
+      </li>
+      <li routerLink="/campaign-status" routerLinkActive="active">
+        <span class="material-symbols-outlined">apps</span>
+        Campaigns
+      </li>
+      <li routerLink="/create-campaign" routerLinkActive="active">
+        <span class="material-symbols-outlined">add_circle</span>
+        Create Campaign
+      </li>
+      <li routerLink="/notifications" routerLinkActive="active">
+        <span class="material-symbols-outlined">notifications</span>
+        Notifications
+        <span class="badge">{{ unreadCount }}</span>
+      </li>
+
+      @if (role === 'admin') {
+      <li routerLink="/user-management" routerLinkActive="active">
+        <span class="material-symbols-outlined">manage_accounts</span>
+        User Management
+      </li>
+      <li routerLink="/moderator-management" routerLinkActive="active">
+        <span class="material-symbols-outlined">account_box</span>
+        Moderator Management
+      </li>
+      } @if (role) {
+      <li (click)="toggleDarkMode()">
+        <span class="material-symbols-outlined">dark_mode</span> Toggle dark
+        mode
+      </li>
+      <li class="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>Logout
+      </li>
+      }
+    </ul>
+  </nav>
+</div>
+
+}

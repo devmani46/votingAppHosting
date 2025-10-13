@@ -1,0 +1,46 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <div class="logo"></div>
+  </div>
+
+  <div class="navbar-right">
+    <div class="hamburger" (click)="menuOpen = !menuOpen">
+      <span class="material-symbols-outlined">menu</span>
+    </div>
+    <ul class="nav-list" [class.open]="menuOpen">
+      <li routerLink="/user-page" routerLinkActive="active">
+        <a>Home</a>
+      </li>
+      <li routerLink="/user-campaign" routerLinkActive="active">
+        <a>Campaigns</a>
+      </li>
+
+      <li (click)="toggleDarkMode()">
+        <span class="material-symbols-outlined">dark_mode</span>
+      </li>
+    </ul>
+
+    <div class="user-menu">
+      <img
+        [src]="user.photo || '/assets/admin.png'"
+        alt="User"
+        class="user-img"
+        (click)="toggleDropdown()"
+      />
+
+      @if (dropdownOpen) {
+      <div class="dropdown">
+        <div class="dropdown-header">
+          <img
+            [src]="user.photo || '/assets/admin.png'"
+            alt="User"
+            class="dropdown-photo"
+          />
+          <span class="username">{{ user.username || "Guest" }}</span>
+        </div>
+        <button type="button" (click)="logout()">Logout</button>
+      </div>
+      }
+    </div>
+  </div>
+</nav>

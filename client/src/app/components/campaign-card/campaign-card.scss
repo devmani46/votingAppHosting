@@ -1,0 +1,302 @@
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+  25% {
+    background-position: 30% 70%, 80% 20%, 10% 40%, 90% 50%, 20% 90%, 70% 10%,
+      60% 30%;
+  }
+  50% {
+    background-position: 70% 30%, 40% 80%, 50% 10%, 10% 50%, 90% 20%, 30% 70%,
+      20% 60%;
+  }
+  75% {
+    background-position: 50% 90%, 60% 40%, 80% 20%, 30% 70%, 10% 50%, 50% 20%,
+      80% 10%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 10px 20px rgba(255, 190, 153, 0.4),
+      0 0 30px rgba(255, 110, 220, 0.3), 0 0 40px rgba(20, 200, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 15px 25px rgba(255, 190, 153, 0.5),
+      0 0 50px rgba(255, 110, 220, 0.4), 0 0 60px rgba(20, 200, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(255, 190, 153, 0.4),
+      0 0 30px rgba(255, 110, 220, 0.3), 0 0 40px rgba(20, 200, 255, 0.2);
+  }
+}
+
+.campaign-card {
+  font-family: Manrope;
+  padding: 3px;
+  display: flex;
+  flex: 1 1 250px;
+  max-width: 400px;
+  width: 100%;
+  min-width: 200px;
+
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  // background: linear-gradient(
+  //   126deg,
+  //   var(--secondary-800) 35%,
+  //   var(--secondary-900) 100%
+  // );
+  background-color: var(--bg-100);
+  border: solid 1px rgb(0, 0, 0, 0.1);
+  color: var(--bg-100);
+  box-shadow: 0 0 0 rgb(0, 0, 0, 0);
+  background-size: 200% 200%;
+  transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  position: relative;
+  min-height: var(--card-size);
+  max-height: var(--card-size);
+  cursor: default;
+
+  &:hover {
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-clickable {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    cursor: pointer;
+  }
+
+  .card-image {
+    flex-grow: 1;
+    width: 100%;
+    max-height: var(--max-image-height);
+
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: max-height 200ms ease-in-out;
+
+    img {
+      width: 100%;
+      height: auto;
+      min-height: var(--min-image-height);
+      object-fit: cover;
+      transition: transform 200ms ease-in-out;
+    }
+  }
+
+  .card-content {
+    color: var(--text-200);
+    padding: 12px;
+    text-align: center;
+    transition: all 200ms ease-in-out;
+    flex-grow: 2;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .description {
+      max-height: 0;
+      margin: 8px 0 0;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: all 200ms ease-in-out;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+    .card-image {
+      max-height: var(--max-image-height-hover);
+      img {
+        transform: scale(1);
+      }
+    }
+
+    .card-content {
+      h3 {
+        transition: transform 200ms ease-in-out;
+      }
+      .description {
+        max-height: 200px;
+        opacity: 1;
+      }
+    }
+  }
+
+  &.card-small {
+    width: 250px;
+
+    h3 {
+      font-size: 0.85rem;
+    }
+
+    .description {
+      font-size: 0.75rem;
+    }
+  }
+
+  &.card-large {
+    width: 400px;
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    .description {
+      font-size: 1rem;
+    }
+  }
+
+  &:not(.card-small):not(.card-large) {
+    width: 100%;
+  }
+
+  &[data-disabled="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    z-index: 10;
+
+    .kebab-menu-container {
+      position: relative;
+
+      .kebab-btn {
+        background: var(--bg-100);
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--accent);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background: var(--accent);
+          color: white;
+          transform: scale(1.1);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+
+        span {
+          font-size: 1.3rem;
+          line-height: 1;
+        }
+
+        &.active {
+          background: var(--accent);
+          color: white;
+        }
+      }
+
+      .kebab-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: var(--bg-100);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        min-width: 120px;
+        z-index: 1000;
+        margin-top: 4px;
+
+        .kebab-option {
+          width: 100%;
+          padding: 8px 12px;
+          border: none;
+          background: none;
+          text-align: left;
+          cursor: pointer;
+          font-size: 14px;
+          color: #333;
+          transition: background-color 0.2s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+
+          &:first-child {
+            border-radius: 8px 8px 0 0;
+          }
+
+          &:last-child {
+            border-radius: 0 0 8px 8px;
+          }
+
+          &:only-child {
+            border-radius: 8px;
+          }
+
+          span {
+            font-size: 16px;
+            line-height: 1;
+          }
+        }
+      }
+    }
+  }
+
+  :host-context(html.dark) & {
+    // background-color: white;
+    // background-image: radial-gradient(
+    //     at 55% 59%,
+    //     hsla(58, 63%, 79%, 1) 0px,
+    //     transparent 50%
+    //   ),
+    //   radial-gradient(at 26% 97%, hsla(76, 70%, 67%, 1) 0px, transparent 50%),
+    //   radial-gradient(at 17% 38%, hsla(179, 88%, 74%, 1) 0px, transparent 50%),
+    //   radial-gradient(at 48% 93%, hsla(338, 83%, 71%, 1) 0px, transparent 50%),
+    //   radial-gradient(at 15% 12%, hsla(209, 86%, 72%, 1) 0px, transparent 50%),
+    //   radial-gradient(at 10% 86%, hsla(108, 86%, 76%, 1) 0px, transparent 50%),
+    //   radial-gradient(at 67% 69%, hsla(277, 93%, 67%, 1) 0px, transparent 50%);
+    background-color: var(--bg-100);
+    border-color: rgb(255, 255, 255, 0.2);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .campaign-card {
+    min-width: 200px;
+
+    h3 {
+      font-size: 0.85rem;
+    }
+
+    .description {
+      font-size: 0.7rem;
+    }
+
+    .card-image img {
+      min-height: 120px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<div class="detail-card" [ngClass]="size">
+  <h3 class="title">{{ title }}</h3>
+  @if (number !== undefined) {
+    <p class="number">{{ number }}</p>
+  }
+  <div class="description-row">
+    <span class="description">{{ description }}</span>
+    <span class="material-icons icon">{{ icon }}</span>
+  </div>
+</div>

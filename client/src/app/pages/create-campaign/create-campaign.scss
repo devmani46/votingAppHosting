@@ -1,0 +1,415 @@
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+  25% {
+    background-position: 30% 70%, 80% 20%, 10% 40%, 90% 50%, 20% 90%, 70% 10%,
+      60% 30%;
+  }
+  50% {
+    background-position: 70% 30%, 40% 80%, 50% 10%, 10% 50%, 90% 20%, 30% 70%,
+      20% 60%;
+  }
+  75% {
+    background-position: 50% 90%, 60% 40%, 80% 20%, 30% 70%, 10% 50%, 50% 20%,
+      80% 10%;
+  }
+  100% {
+    background-position: 0% 0%, 100% 0%, 0% 50%, 100% 50%, 0% 100%, 100% 100%,
+      50% 0%;
+  }
+}
+
+.campaign-container {
+  --colorNeutralBackground1: var(--bg-100);
+  --colorNeutralStroke1: rgba(0, 0, 0, 0.1);
+  --colorNeutralStrokeAccessible: rgba(0, 0, 0, 0.1);
+  --colorBrand90: var(--primary-100);
+  --colorBrandBackgroundHover: var(--accent);
+
+  --card-size: 15rem;
+  --max-image-height: 12rem;
+  --min-image-height: 12rem;
+  --max-image-height-hover: 10rem;
+
+  font-family: Manrope;
+  display: flex;
+  gap: 16px;
+  background-color: var(--bg-200);
+  min-height: 100vh;
+  min-width: 100vw;
+  color: var(--text-100);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+  }
+
+  .admin-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+.create-form {
+  width: 60%;
+  padding: 4rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2rem;
+
+    .add-banner {
+      border-radius: 10px;
+      padding: 0rem;
+      background-color: #ffbe99;
+      background-image: radial-gradient(
+          at 62% 72%,
+          hsla(255, 86%, 69%, 1) 0px,
+          transparent 50%
+        ),
+        radial-gradient(at 66% 19%, hsla(20, 78%, 65%, 1) 0px, transparent 50%),
+        radial-gradient(at 88% 33%, hsla(20, 78%, 65%, 1) 0px, transparent 50%),
+        radial-gradient(at 96% 8%, hsla(331, 73%, 62%, 1) 0px, transparent 50%),
+        radial-gradient(at 71% 22%, hsla(342, 95%, 70%, 1) 0px, transparent 50%),
+        radial-gradient(at 86% 96%, hsla(346, 63%, 73%, 1) 0px, transparent 50%),
+        radial-gradient(at 51% 0%, hsla(250, 90%, 68%, 1) 0px, transparent 50%);
+      background-size: 200% 200%;
+      order: -1;
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      &:hover {
+        padding: 0.3rem;
+        animation: gradientMove 3s linear infinite;
+      }
+    }
+
+    .add-candidates {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .photo-divide {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    .dates {
+      display: flex;
+      gap: 2rem;
+    }
+  }
+}
+
+.description-box {
+  font-size: 1rem;
+  border: solid 1px var(--colorNeutralStrokeAccessible);
+  background-color: var(--bg-100);
+  padding: 0.8rem;
+  border-radius: 6px;
+  min-width: 100%;
+  min-height: 10rem;
+}
+
+.image-upload {
+  cursor: pointer;
+  position: relative;
+  background-color: var(--bg-100);
+  border: 1px solid var(--bg-100);
+  color: var(--text-200);
+  min-width: 100%;
+  min-height: 12rem;
+  border-radius: 6px;
+
+  span,
+  p {
+    position: relative;
+    z-index: 100;
+  }
+
+  span {
+    font-size: 4rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+.logo-preview {
+  img {
+    object-fit: cover;
+    min-width: 100%;
+    max-height: 12rem;
+  }
+}
+
+.candidates-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.candidate-card-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 12px;
+  cursor: pointer;
+
+  .delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ff4d4d;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      background: grey;
+    }
+  }
+}
+
+.dialog,
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.dialog-content {
+  background: var(--bg-200);
+  padding: 32px;
+  border-radius: 20px;
+  width: 720px;
+  max-width: calc(100% - 48px);
+  min-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  animation: fadeInScale 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 1rem;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.candidate-form-divided {
+  display: flex;
+  gap: 3rem;
+}
+
+.candidate-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+}
+
+.choose-photo-btn {
+  background: var(--bg-100);
+  color: var(--text-100);
+  min-height: 15rem;
+  min-width: 13rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #3a2c1a;
+    transform: translateY(-2px);
+  }
+
+  span {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.candidate-photo {
+  object-fit: cover;
+  border-radius: 12px;
+  min-width: 13rem;
+  min-height: 15rem;
+  max-width: 13rem;
+  max-height: 15rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bio-box {
+  background-color: var(--bg-100);
+  padding: 0.8rem;
+  border-radius: 8px;
+  height: 10rem;
+  width: 25rem;
+  border: 1px solid #e0d9c8;
+  resize: none;
+}
+
+.start-date,
+.end-date {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    background-color: var(--bg-100);
+    padding: 0.7rem;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    border: 1px solid #e0d9c8;
+  }
+}
+
+.properties {
+  .row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+}
+
+.properties-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9f6ef;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f1e9dc;
+    }
+
+    .prop-text {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .remove-prop {
+      cursor: pointer;
+      color: #ff4d4d;
+      font-weight: bold;
+      margin-left: 12px;
+      font-size: 1.2rem;
+
+      &:hover {
+        color: #cc0000;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .create-form {
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .dialog-content {
+    width: 92%;
+    min-width: auto;
+    padding: 20px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialog-content {
+    padding: 14px;
+  }
+
+  .candidate-form-divided {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .choose-photo-btn,
+  .candidate-photo,
+  .bio-box {
+    min-width: auto;
+    max-width: 100%;
+  }
+}

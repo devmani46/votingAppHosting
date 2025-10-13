@@ -1,0 +1,27 @@
+<div class="notifications-page">
+  <app-burger-menu></app-burger-menu>
+
+  <div class="notification-section">
+    <h2>Notifications</h2>
+    <ul class="notification-list">
+      @if (notifications.length > 0) { @for (n of pagedNotifications(); track
+      n.id) {
+      <app-notification-block
+        [type]="n.type"
+        [created_date]="n.created_at"
+        [metadata]="n.metadata"
+      />
+      } }
+    </ul>
+
+    <mat-paginator
+      [length]="notifications.length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 20, 30]"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
+      class="notification-paginator"
+    >
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="menu-page">
+  <app-burger-menu></app-burger-menu>
+
+  <div class="campaign-list">
+    <h2 class="dashboard-title">Dashboard</h2>
+
+    <div class="details-section">
+      <div class="details-row large-cards">
+        <app-detail-cards
+          size="large"
+          title="Create Campaign"
+          description="Start a new campaign"
+          icon="add_circle"
+          (click)="navigate('/create-campaign')"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="large"
+          title="All Campaigns"
+          description="View and manage campaigns"
+          icon="campaign"
+          (click)="navigate('/campaign-status')"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="large"
+          title="Notifications"
+          description="Check system notifications"
+          icon="notifications"
+          (click)="navigate('/notifications')"
+        >
+        </app-detail-cards>
+
+      </div>
+
+      <div class="details-row small-cards">
+        <app-detail-cards
+          size="small"
+          title="Total Users"
+          [number]="totalUsers"
+          description="Registered users in the system"
+          icon="group"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="small"
+          title="Total Moderators"
+          [number]="totalModerators"
+          description="Moderators managing the system"
+          icon="admin_panel_settings"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="small"
+          title="Total Votes"
+          [number]="totalVotes"
+          description="Total votes cast"
+          icon="how_to_vote"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="small"
+          title="Total Campaigns"
+          [number]="totalCampaigns"
+          description="Active campaigns"
+          icon="campaign"
+        >
+        </app-detail-cards>
+
+        <app-detail-cards
+          size="small"
+          title="Total Candidates"
+          [number]="totalCandidates"
+          description="All candidates across campaigns"
+          icon="person"
+        >
+        </app-detail-cards>
+      </div>
+    </div>
+  </div>
+</div>

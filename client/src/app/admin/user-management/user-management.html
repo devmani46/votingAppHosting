@@ -1,0 +1,144 @@
+<div class="user-management">
+  <app-burger-menu></app-burger-menu>
+
+  <div class="section">
+    <div class="header">
+      <h2>User Management</h2>
+      <!-- <img class="admin-photo" src="/assets/admin.png" alt="Admin" /> -->
+    </div>
+    <div
+      class="section-header"
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div style="display: flex; gap: 0.5rem; align-items: center">
+        <app-fui-input
+          placeholder="Search by name/email/username"
+          [formControl]="searchControl"
+        ></app-fui-input>
+      </div>
+    </div>
+
+    <cdk-table [dataSource]="pagedUsers()" class="user-table">
+      <ng-container cdkColumnDef="username">
+        <cdk-header-cell *cdkHeaderCellDef (click)="changeSort('username')">
+          Username @if (sortField() === 'username') {
+          <span>{{ sortDirection() === "asc" ? "↑" : "↓" }}</span>
+          }
+        </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let user"> {{ user.username }} </cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="email">
+        <cdk-header-cell *cdkHeaderCellDef (click)="changeSort('email')">
+          Email @if (sortField() === 'email') {
+          <span>{{ sortDirection() === "asc" ? "↑" : "↓" }}</span>
+          }
+        </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let user"> {{ user.email }} </cdk-cell>
+      </ng-container>
+
+      <!-- <ng-container cdkColumnDef="session">
+        <cdk-header-cell *cdkHeaderCellDef> Session </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let user">Active</cdk-cell>
+      </ng-container> -->
+
+      <ng-container cdkColumnDef="joinDate">
+        <cdk-header-cell *cdkHeaderCellDef> Join Date </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let user">{{
+          user.created_at | date : "short"
+        }}</cdk-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="actions">
+        <cdk-header-cell *cdkHeaderCellDef> Actions </cdk-header-cell>
+        <cdk-cell *cdkCellDef="let user">
+          <div class="action-buttons">
+            <app-button
+              size="small"
+              appearance="outline"
+              shape="circular"
+              (click)="openDialog(user.id)"
+            >
+              <span class="material-symbols-outlined">edit</span>
+            </app-button>
+            <app-button
+              size="small"
+              appearance="primary"
+              shape="circular"
+              (click)="deleteUser(user.id)"
+            >
+              <span class="material-symbols-outlined">delete</span>
+            </app-button>
+          </div>
+        </cdk-cell>
+      </ng-container>
+
+      <cdk-header-row *cdkHeaderRowDef="displayedColumns"></cdk-header-row>
+      <cdk-row *cdkRowDef="let row; columns: displayedColumns"></cdk-row>
+    </cdk-table>
+
+    <mat-paginator
+      [length]="filteredUsers().length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
+      class="user-paginator"
+    >
+    </mat-paginator>
+
+    @if (filteredUsers().length === 0) {
+    <div class="empty-state">
+      <p>No users found.</p>
+    </div>
+    }
+  </div>
+
+  @if (showDialog()) {
+  <div class="dialog-backdrop" (click)="closeDialogOnBackdrop($event)">
+    <div class="dialog-content" (click)="$event.stopPropagation()">
+      <h3>{{ editId() !== null ? "Edit User" : "Add User" }}</h3>
+
+      <div class="user-form">
+        <label>First Name</label>
+        <app-fui-input
+          [formControl]="firstNameControl"
+          placeholder="First Name"
+        ></app-fui-input>
+
+        <label>Last Name</label>
+        <app-fui-input
+          [formControl]="lastNameControl"
+          placeholder="Last Name"
+        ></app-fui-input>
+
+        <label>Username</label>
+        <app-fui-input
+          [formControl]="usernameControl"
+          placeholder="Username"
+        ></app-fui-input>
+
+        <label>Email</label>
+        <app-fui-input
+          [formControl]="emailControl"
+          placeholder="Email"
+        ></app-fui-input>
+
+        <label>Password</label>
+        <app-fui-input
+          [formControl]="passwordControl"
+          placeholder="Password"
+          type="password"
+        ></app-fui-input>
+      </div>
+
+      <div class="dialog-actions">
+        <app-button appearance="secondary" (click)="closeDialog()"
+          >Cancel</app-button
+        >
+        <app-button appearance="primary" (click)="saveUser()">Save</app-button>
+      </div>
+    </div>
+  </div>
+  }
+</div>
